@@ -1,6 +1,5 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
-import { scrapeUnityAsset } from './scrapeUnityAsset2.mjs';
 
 const server = Fastify();
 
@@ -15,8 +14,8 @@ server.post('/api/scrape', async (req, reply) => {
     const results = [];
     for (const url of body.urls) {
         try {
-            const data = await scrapeUnityAsset(url);
-            results.push(data);
+            // const data = await scrapeUnityAsset(url);
+            // results.push(data);
         } catch (err) {
             console.error('Failed to scrape URL:', url);
             console.error(err); // ✅ log full error

@@ -16,7 +16,7 @@
     },
     "scripts": {
         "dev": "node --loader ts-node/esm src/index.mts",
-        "scrape": "tsx src/scrapeUnityAsset.mts"
+        "scrape": "tsx src/scrapeGallery.mts"
     },
     "packageManager": "yarn@4.10.2"
 }
