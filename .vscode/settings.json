@@ -1,0 +1,16 @@
+{
+    "prettier.configPath": "prettierrc.json",
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "editor.tabSize": 4,
+    "files.eol": "\n",
+    "files.associations": {
+        "*.mts": "typescript"
+    },
+    "[javascript][json][jsonc][typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
+    },
+}
