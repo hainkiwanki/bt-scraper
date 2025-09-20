@@ -1,4 +1,4 @@
-import { scrapeUnityAsset } from './scrapeUnityAsset.mjs';
+import { scrapeUnityAsset } from './scrapeUnityAsset2.mjs';
 import type { UnityAssetData } from './unityAssetData.mjs';
 
 export async function scrapeMultipleAssets(urls: string[]): Promise<UnityAssetData[]> {

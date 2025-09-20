@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
-import { scrapeUnityAsset } from './scrapeUnityAsset.mjs';
+import { scrapeUnityAsset } from './scrapeUnityAsset2.mjs';
 
 const server = Fastify();
 
@@ -10,9 +10,7 @@ await server.register(cors, {
 
 server.post('/api/scrape', async (req, reply) => {
     const body = (await req.body) as { urls: string[] };
-    if (!Array.isArray(body.urls)) {
-        return reply.code(400).send({ error: 'Invalid input' });
-    }
+    if (!Array.isArray(body.urls)) return reply.code(400).send({ error: 'Invalid input' });
 
     const results = [];
     for (const url of body.urls) {
@@ -20,6 +18,8 @@ server.post('/api/scrape', async (req, reply) => {
             const data = await scrapeUnityAsset(url);
             results.push(data);
         } catch (err) {
+            console.error('Failed to scrape URL:', url);
+            console.error(err); // ✅ log full error
             results.push({ url, error: (err as Error).message });
         }
     }

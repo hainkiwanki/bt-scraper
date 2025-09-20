@@ -4,7 +4,7 @@
     "type": "module",
     "dependencies": {
         "@fastify/cors": "^11.1.0",
-        "fastify": "^4.25.0",
+        "fastify": "5",
         "playwright": "^1.44.0"
     },
     "devDependencies": {
@@ -15,7 +15,7 @@
         "typescript": "^5.9.2"
     },
     "scripts": {
-        "dev": "tsx src/index.mts",
+        "dev": "node --loader ts-node/esm src/index.mts",
         "scrape": "tsx src/scrapeUnityAsset.mts"
     },
     "packageManager": "yarn@4.10.2"
