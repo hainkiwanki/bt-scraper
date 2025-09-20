@@ -1,6 +1,6 @@
 {
     "name": "bt-scraper",
-    "version": "0.3.1",
+    "version": "0.5.0",
     "type": "module",
     "dependencies": {
         "@fastify/cors": "^11.1.0",
