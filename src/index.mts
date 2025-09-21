@@ -9,7 +9,9 @@ await server.register(cors, {
 
 server.post('/api/scrape', async (req, reply) => {
     const body = (await req.body) as { urls: string[] };
-    if (!Array.isArray(body.urls)) return reply.code(400).send({ error: 'Invalid input' });
+    if (!Array.isArray(body.urls)) {
+        return reply.code(400).send({ error: 'Invalid input' });
+    }
 
     const results = [];
     for (const url of body.urls) {

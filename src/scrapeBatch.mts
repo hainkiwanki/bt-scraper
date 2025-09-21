@@ -1,5 +1,5 @@
-import { scrapeUnityAsset } from './scrapeUnityAsset2.mjs';
-import type { UnityAssetData } from './unityAssetData.mjs';
+import { scrapeGallery } from './scrapeGallery.mjs';
+import type { UnityAssetData } from './types/unityAssetStore/unityAssetData.mjs';
 
 export async function scrapeMultipleAssets(urls: string[]): Promise<UnityAssetData[]> {
     const results: UnityAssetData[] = [];
@@ -7,8 +7,8 @@ export async function scrapeMultipleAssets(urls: string[]): Promise<UnityAssetDa
     for (const url of urls) {
         try {
             console.log(`Scraping: ${url}`);
-            const data = await scrapeUnityAsset(url);
-            results.push(data);
+            // const data = await scrapeGallery(url);
+            // results.push(data);
         } catch (err) {
             console.error(`Failed to scrape ${url}`, err);
         }
