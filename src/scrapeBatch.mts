@@ -7,8 +7,8 @@ export async function scrapeMultipleAssets(urls: string[]): Promise<UnityAssetDa
     for (const url of urls) {
         try {
             console.log(`Scraping: ${url}`);
-            // const data = await scrapeGallery(url);
-            // results.push(data);
+            const data = await scrapeGallery(url);
+            results.push(data);
         } catch (err) {
             console.error(`Failed to scrape ${url}`, err);
         }

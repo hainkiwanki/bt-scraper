@@ -70,7 +70,7 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
             return { res_urls: [], res_vids: [] };
         }
         let firstSrc: string | undefined = undefined;
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 30; i++) {
             const img = document.querySelector<HTMLImageElement>(gallerySelector);
             if (img?.src) {
                 if (!firstSrc) firstSrc = img.src;
@@ -111,13 +111,13 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
 }
 
 // Example run
-scrapeGallery(
-    'https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/horned-knight-rpg-dark-fantasy-modular-female-and-male-character-183453'
-)
-    .then((result) => {
-        console.log(result);
-    })
-    .catch(console.error);
+// scrapeGallery(
+//     'https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/horned-knight-rpg-dark-fantasy-modular-female-and-male-character-183453'
+// )
+//     .then((result) => {
+//         console.log(result);
+//     })
+//     .catch(console.error);
 
 // async function downloadImage(url: string, folder: string): Promise<void> {
 //     return new Promise((resolve, reject) => {

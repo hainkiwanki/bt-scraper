@@ -1,5 +1,7 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import { scrapeMultipleAssets } from './scrapeBatch.mjs';
+import type { UnityAssetData } from './types/unityAssetStore/unityAssetData.mjs';
 
 const server = Fastify();
 
@@ -13,18 +15,7 @@ server.post('/api/scrape', async (req, reply) => {
         return reply.code(400).send({ error: 'Invalid input' });
     }
 
-    const results = [];
-    for (const url of body.urls) {
-        try {
-            // const data = await scrapeUnityAsset(url);
-            // results.push(data);
-        } catch (err) {
-            console.error('Failed to scrape URL:', url);
-            console.error(err); // ✅ log full error
-            results.push({ url, error: (err as Error).message });
-        }
-    }
-
+    let results = await scrapeMultipleAssets(body.urls);
     reply.send(results);
 });
 
