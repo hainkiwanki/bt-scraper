@@ -11,11 +11,11 @@
         "@types/node": "^24.5.2",
         "prettier": "^3.6.2",
         "ts-node": "^10.9.2",
-        "tsx": "^4.20.5",
+        "tsx": "^4.20.6",
         "typescript": "^5.9.2"
     },
     "scripts": {
-        "dev": "node --loader ts-node/esm src/index.mts",
+        "dev": "tsx src/index.mts",
         "scrape": "tsx src/scrapeGallery.mts"
     },
     "packageManager": "yarn@4.10.2"

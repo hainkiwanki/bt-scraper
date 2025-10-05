@@ -59,6 +59,16 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
         // release date
         const releaseDate = document.querySelector('div.product-date div.SoNzt')?.textContent?.trim() || undefined;
 
+        // description
+        let description = document.querySelector('#description-panel')?.innerHTML.trim() || undefined;
+        if (description) {
+            // description = description
+            //     .replace(/<[^>]*>/g, '\n')
+            //     .replace(/\s+/g, ' ')
+            //     .trim();
+            description = description.replace(/<(\w+)([^>]*)>/g, '<$1>');
+        }
+
         // img and vid urls
         const urls: Set<string> = new Set();
         const vids: Set<string> = new Set();
@@ -101,7 +111,7 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
             publisher,
             version,
             releaseDate,
-            description: '',
+            description,
             images: [...urls],
             videos: [...vids],
         };
@@ -109,7 +119,6 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
     await browser.close();
     return result as UnityAssetData;
 }
-
 // Example run
 // scrapeGallery(
 //     'https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/horned-knight-rpg-dark-fantasy-modular-female-and-male-character-183453'
