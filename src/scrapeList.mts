@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 
 export async function scrapeList(url: string): Promise<string[]> {
-    const browser = await chromium.launch({ headless: false, slowMo: 10000 });
+    const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext();
     const page = await context.newPage();
 
@@ -24,8 +24,6 @@ export async function scrapeList(url: string): Promise<string[]> {
 
             const cards = grid.querySelectorAll(':scope > div');
             const results: string[] = [];
-            results.push(cards.length.toString());
-
             cards.forEach((card, index) => {
                 const link = card.querySelector<HTMLAnchorElement>('a[href*="/packages/"]');
                 const urlLink = link?.href.split('?')[0];
@@ -53,6 +51,4 @@ export async function scrapeList(url: string): Promise<string[]> {
 (async () => {
     const listUrl = 'https://assetstore.unity.com/lists/props-environment-9071908986885';
     const assetLinks = await scrapeList(listUrl);
-    console.log(`Found ${assetLinks.length} assets:`);
-    console.log(assetLinks);
 })();
