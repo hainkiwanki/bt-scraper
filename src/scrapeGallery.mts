@@ -1,12 +1,12 @@
 import { chromium } from 'playwright';
 import type { UnityPublisher } from './types/unityAssetStore/unityPublisher.mjs';
 import type { UnityAssetData } from './types/unityAssetStore/unityAssetData.mjs';
-// import path from 'path';
-// import fs from 'fs';
-// import https from 'https';
+import path from 'path';
+import fs from 'fs';
+import https from 'https';
 
 export async function scrapeGallery(url: string): Promise<UnityAssetData> {
-    const browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({ headless: false, slowMo: 100 });
     const context = await browser.newContext();
     const page = await context.newPage();
 
@@ -128,45 +128,45 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
 //     })
 //     .catch(console.error);
 
-// async function downloadImage(url: string, folder: string): Promise<void> {
-//     return new Promise((resolve, reject) => {
-//         const filename = path.basename(new URL(url).pathname);
-//         const filePath = path.join(folder, filename);
+async function downloadImage(url: string, folder: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+        const filename = path.basename(new URL(url).pathname);
+        const filePath = path.join(folder, filename);
 
-//         fs.mkdirSync(folder, { recursive: true });
+        fs.mkdirSync(folder, { recursive: true });
 
-//         const file = fs.createWriteStream(filePath);
-//         https
-//             .get(url, (res) => {
-//                 if (res.statusCode !== 200) {
-//                     reject(new Error(`Failed ${url}: ${res.statusCode}`));
-//                     return;
-//                 }
-//                 res.pipe(file);
-//                 file.on('finish', () => {
-//                     file.close((err) => {
-//                         if (err) return reject(err);
-//                         resolve();
-//                     });
-//                 });
-//             })
-//             .on('error', reject);
-//     });
-// }
+        const file = fs.createWriteStream(filePath);
+        https
+            .get(url, (res) => {
+                if (res.statusCode !== 200) {
+                    reject(new Error(`Failed ${url}: ${res.statusCode}`));
+                    return;
+                }
+                res.pipe(file);
+                file.on('finish', () => {
+                    file.close((err) => {
+                        if (err) return reject(err);
+                        resolve();
+                    });
+                });
+            })
+            .on('error', reject);
+    });
+}
 
-// async function main(): Promise<void> {
-//     const url = 'https://assetstore.unity.com/packages/slug/183453';
-//     const outDir = './images';
+async function main(): Promise<void> {
+    const url = 'https://assetstore.unity.com/packages/slug/183453';
+    const outDir = './images';
 
-//     const result = await scrapeGallery(url, 30);
-//     console.log(`Found ${result.res_urls.length} images. Downloading...`);
+    const result = await scrapeGallery(url);
+    console.log(`Found ${result.images.length} images. Downloading...`);
 
-//     for (const imgUrl of result.res_urls) {
-//         await downloadImage(imgUrl, outDir);
-//         console.log(`✅ Downloaded: ${imgUrl}`);
-//     }
+    for (const imgUrl of result.images) {
+        await downloadImage(imgUrl, outDir);
+        console.log(`✅ Downloaded: ${imgUrl}`);
+    }
 
-//     console.log('🎉 All done! Images saved in ./images');
-// }
+    console.log('🎉 All done! Images saved in ./images');
+}
 
-// main().catch(console.error);
+main();
