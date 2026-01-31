@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 
 export async function scrapeList(url: string): Promise<string[]> {
-    const browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({ headless: false, timeout: 100 });
     const context = await browser.newContext();
     const page = await context.newPage();
 

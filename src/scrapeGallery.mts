@@ -120,13 +120,13 @@ export async function scrapeGallery(url: string): Promise<UnityAssetData> {
     return result as UnityAssetData;
 }
 // Example run
-// scrapeGallery(
-//     'https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/horned-knight-rpg-dark-fantasy-modular-female-and-male-character-183453'
-// )
-//     .then((result) => {
-//         console.log(result);
-//     })
-//     .catch(console.error);
+scrapeGallery(
+    'https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/horned-knight-rpg-dark-fantasy-modular-female-and-male-character-183453'
+)
+    .then((result) => {
+        console.log(result);
+    })
+    .catch(console.error);
 
 async function downloadImage(url: string, folder: string): Promise<void> {
     return new Promise((resolve, reject) => {
